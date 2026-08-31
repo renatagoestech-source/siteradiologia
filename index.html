@@ -1,1004 +1,167 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="description" content="Portal educativo sobre Radiologia, Raios X e Proteção Radiológica">
 
-    <meta
-        name="description"
-        content="Portal educacional sobre radiologia, radiografia e incidências radiográficas."
-    >
-
-    <title>Radiologia | Guia de Estudos</title>
+    <title>Radiologia | Conhecimento em Raios X</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Ícones -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+    <!-- ================= HEADER ================= -->
 
     <header class="header">
 
-        <div class="container navbar">
+        <div class="container nav-container">
 
             <a href="#inicio" class="logo">
-                RADIO<span>LOGIA</span>
+                <span class="logo-icon">
+                    <i class="fa-solid fa-x-ray"></i>
+                </span>
+
+                <span>
+                    Radio<span>Med</span>
+                </span>
             </a>
 
-            <button
-                class="menu-button"
-                id="menuButton"
-                aria-label="Abrir menu"
-            >
-                ☰
-            </button>
-
-            <nav class="nav" id="nav">
+            <nav class="navbar" id="navbar">
 
                 <a href="#inicio">Início</a>
-                <a href="#conceitos">Conceitos</a>
-                <a href="#incidencias">Incidências</a>
-                <a href="#anatomia">Anatomia</a>
-                <a href="#galeria">Raio-X</a>
-                <a href="#seguranca">Segurança</a>
+                <a href="#raios-x">Raios X</a>
+                <a href="#principios">Princípios</a>
+                <a href="#protecao">Proteção</a>
+                <a href="#exames">Exames</a>
+                <a href="#sobre">Sobre</a>
 
             </nav>
+
+            <div class="header-actions">
+
+                <button
+                    class="theme-btn"
+                    id="themeBtn"
+                    aria-label="Alterar tema">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <button
+                    class="menu-btn"
+                    id="menuBtn"
+                    aria-label="Abrir menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+            </div>
 
         </div>
 
     </header>
 
 
+    <!-- ================= HERO ================= -->
+
     <main>
 
-        <!-- =========================
-             HERO
-        ========================== -->
-
         <section class="hero" id="inicio">
-
-            <div class="hero-overlay"></div>
 
             <div class="container hero-content">
 
                 <div class="hero-text">
 
-                    <span class="hero-label">
-                        GUIA DE ESTUDOS
+                    <span class="badge">
+                        <i class="fa-solid fa-radiation"></i>
+                        Portal Educativo de Radiologia
                     </span>
 
                     <h1>
-                        RADIOLOGIA
-                        <strong>na prática.</strong>
+                        Explorando o mundo da
+                        <span>Radiologia</span>
                     </h1>
 
                     <p>
-                        Um guia visual para conhecer os principais
-                        conceitos da radiografia, incidências,
-                        posicionamentos e características das
-                        imagens de raio-X.
+                        Conheça os fundamentos dos raios X, os princípios
+                        da formação das imagens radiográficas e a importância
+                        da proteção radiológica.
                     </p>
 
                     <div class="hero-buttons">
 
-                        <a
-                            href="#conceitos"
-                            class="button button-primary"
-                        >
-                            Começar a estudar
+                        <a href="#exames" class="btn btn-primary">
+                            Ver exames
+                            <i class="fa-solid fa-arrow-right"></i>
                         </a>
 
-                        <a
-                            href="#galeria"
-                            class="button button-outline"
-                        >
-                            Ver radiografias
+                        <a href="#raios-x" class="btn btn-outline">
+                            Aprender mais
                         </a>
 
                     </div>
 
-                </div>
+                    <div class="hero-stats">
 
-
-                <div class="hero-xray">
-
-                    <div class="xray-card">
-
-                        <div class="xray-top">
-                            <span>RADIOGRAPHY</span>
-                            <span>01</span>
+                        <div class="stat">
+                            <strong>06</strong>
+                            <span>Regiões estudadas</span>
                         </div>
 
-                        <div class="xray-body">
-
-                            <div class="lung left-lung"></div>
-                            <div class="lung right-lung"></div>
-
-                            <div class="spine"></div>
-
+                        <div class="stat">
+                            <strong>100%</strong>
+                            <span>Conteúdo educativo</span>
                         </div>
 
-                        <div class="xray-bottom">
-                            CHEST • AP / PA
+                        <div class="stat">
+                            <strong>RX</strong>
+                            <span>Imagem radiográfica</span>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
 
-        </section>
+                <div class="hero-image">
 
+                    <div class="xray-display">
 
-        <!-- =========================
-             INTRODUÇÃO
-        ========================== -->
+                        <div class="xray-placeholder">
 
-        <section class="intro section">
+                            <i class="fa-solid fa-x-ray"></i>
 
-            <div class="container">
+                            <span>IMAGEM RADIOGRÁFICA</span>
 
-                <div class="intro-grid">
+                            <small>
+                                Área para radiografia ilustrativa
+                            </small>
 
-                    <div>
+                        </div>
 
-                        <span class="section-label">
-                            01 / INTRODUÇÃO
-                        </span>
-
-                        <h2>
-                            O que é
-                            <span>radiologia?</span>
-                        </h2>
+                        <div class="scan-line"></div>
 
                     </div>
 
-
-                    <div class="intro-text">
-
-                        <p>
-                            A radiologia é uma área da saúde que utiliza
-                            diferentes métodos de imagem para visualizar
-                            estruturas internas do corpo humano.
-                        </p>
-
-                        <p>
-                            Entre essas técnicas está a radiografia,
-                            que utiliza raios X para produzir imagens
-                            das estruturas anatômicas.
-                        </p>
-
-                        <p>
-                            A radiografia é amplamente utilizada na
-                            avaliação de ossos, tórax e diversas outras
-                            regiões anatômicas.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             CONCEITOS
-        ========================== -->
-
-        <section
-            class="section concepts-section"
-            id="conceitos"
-        >
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <div>
-                        <span class="section-label">
-                            02 / FUNDAMENTOS
-                        </span>
-
-                        <h2>
-                            Conceitos
-                            <span>essenciais</span>
-                        </h2>
-                    </div>
-
-                    <p>
-                        Alguns conceitos fundamentais para
-                        compreender uma imagem radiográfica.
-                    </p>
-
-                </div>
-
-
-                <div class="concept-grid">
-
-                    <article class="concept-card">
-
-                        <div class="card-number">
-                            01
-                        </div>
-
-                        <h3>
-                            Raios X
-                        </h3>
-
-                        <p>
-                            Forma de radiação eletromagnética capaz
-                            de atravessar diferentes estruturas
-                            do corpo e produzir uma imagem.
-                        </p>
-
-                    </article>
-
-
-                    <article class="concept-card">
-
-                        <div class="card-number">
-                            02
-                        </div>
-
-                        <h3>
-                            Densidade
-                        </h3>
-
-                        <p>
-                            Diferentes materiais absorvem os raios X
-                            em graus diferentes, produzindo variações
-                            de tonalidade na imagem.
-                        </p>
-
-                    </article>
-
-
-                    <article class="concept-card">
-
-                        <div class="card-number">
-                            03
-                        </div>
-
-                        <h3>
-                            Contraste
-                        </h3>
-
-                        <p>
-                            Refere-se à diferença entre regiões claras
-                            e escuras de uma radiografia, auxiliando
-                            na visualização das estruturas.
-                        </p>
-
-                    </article>
-
-
-                    <article class="concept-card">
-
-                        <div class="card-number">
-                            04
-                        </div>
-
-                        <h3>
-                            Posicionamento
-                        </h3>
-
-                        <p>
-                            A posição do paciente e a direção do feixe
-                            influenciam diretamente a imagem obtida.
-                        </p>
-
-                    </article>
-
-
-                    <article class="concept-card">
-
-                        <div class="card-number">
-                            05
-                        </div>
-
-                        <h3>
-                            Receptor
-                        </h3>
-
-                        <p>
-                            Sistema que registra a radiação que
-                            atravessou o paciente para formar
-                            a imagem radiográfica.
-                        </p>
-
-                    </article>
-
-
-                    <article class="concept-card">
-
-                        <div class="card-number">
-                            06
-                        </div>
-
-                        <h3>
-                            Incidência
-                        </h3>
-
-                        <p>
-                            Descreve a direção e o caminho do feixe
-                            de raios X em relação ao paciente
-                            durante a aquisição.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             INCIDÊNCIAS
-        ========================== -->
-
-        <section
-            class="section projections-section"
-            id="incidencias"
-        >
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <div>
-
-                        <span class="section-label">
-                            03 / POSICIONAMENTO
-                        </span>
-
-                        <h2>
-                            Principais
-                            <span>incidências</span>
-                        </h2>
-
-                    </div>
-
-                    <p>
-                        Conheça algumas das projeções
-                        mais utilizadas na radiografia.
-                    </p>
-
-                </div>
-
-
-                <div class="projection-list">
-
-                    <!-- PA -->
-
-                    <article class="projection">
-
-                        <div class="projection-number">
-                            01
-                        </div>
-
-                        <div class="projection-content">
-
-                            <div class="projection-title">
-                                <h3>PA</h3>
-
-                                <span>
-                                    POSTEROANTERIOR
-                                </span>
-                            </div>
-
-                            <p>
-                                Na projeção PA, o feixe de raios X
-                                atravessa o paciente de posterior
-                                para anterior.
-                            </p>
-
-                            <div class="direction">
-
-                                <span>POSTERIOR</span>
-
-                                <div class="arrow">
-                                    ─────────→
-                                </div>
-
-                                <span>ANTERIOR</span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- AP -->
-
-                    <article class="projection">
-
-                        <div class="projection-number">
-                            02
-                        </div>
-
-                        <div class="projection-content">
-
-                            <div class="projection-title">
-                                <h3>AP</h3>
-
-                                <span>
-                                    ANTEROPOSTERIOR
-                                </span>
-                            </div>
-
-                            <p>
-                                Na projeção AP, o feixe atravessa
-                                o paciente de anterior para posterior.
-                                É comum em exames portáteis.
-                            </p>
-
-                            <div class="direction">
-
-                                <span>ANTERIOR</span>
-
-                                <div class="arrow">
-                                    ─────────→
-                                </div>
-
-                                <span>POSTERIOR</span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- LATERAL -->
-
-                    <article class="projection">
-
-                        <div class="projection-number">
-                            03
-                        </div>
-
-                        <div class="projection-content">
-
-                            <div class="projection-title">
-                                <h3>Lateral</h3>
-
-                                <span>
-                                    VISTA LATERAL
-                                </span>
-                            </div>
-
-                            <p>
-                                A imagem lateral representa uma
-                                perspectiva obtida de lado,
-                                permitindo avaliar estruturas
-                                em outro plano.
-                            </p>
-
-                            <div class="direction">
-
-                                <span>LADO</span>
-
-                                <div class="arrow">
-                                    ─────────→
-                                </div>
-
-                                <span>LADO</span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- OBLÍQUA -->
-
-                    <article class="projection">
-
-                        <div class="projection-number">
-                            04
-                        </div>
-
-                        <div class="projection-content">
-
-                            <div class="projection-title">
-                                <h3>Oblíqua</h3>
-
-                                <span>
-                                    PROJEÇÃO ANGULADA
-                                </span>
-                            </div>
-
-                            <p>
-                                Utiliza uma angulação do corpo em
-                                relação ao receptor para demonstrar
-                                estruturas que podem ficar sobrepostas
-                                em outras projeções.
-                            </p>
-
-                            <div class="direction">
-
-                                <span>ÂNGULO</span>
-
-                                <div class="arrow">
-                                    ╲────────→
-                                </div>
-
-                                <span>RECEPTOR</span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             INCIDÊNCIAS POR REGIÃO
-        ========================== -->
-
-        <section class="section anatomy-section" id="anatomia">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <div>
-
-                        <span class="section-label">
-                            04 / ESTUDO ANATÔMICO
-                        </span>
-
-                        <h2>
-                            Incidências por
-                            <span>região</span>
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-                <div class="anatomy-grid">
-
-                    <article class="anatomy-card">
-
-                        <div class="anatomy-icon">
-                            01
-                        </div>
-
-                        <h3>
-                            Tórax
-                        </h3>
-
-                        <p>
-                            PA e lateral são projeções frequentemente
-                            utilizadas em exames de tórax em pacientes
-                            capazes de permanecer em posição adequada.
-                        </p>
-
-                        <div class="mini-tags">
-                            <span>PA</span>
-                            <span>LATERAL</span>
-                            <span>AP</span>
-                        </div>
-
-                    </article>
-
-
-                    <article class="anatomy-card">
-
-                        <div class="anatomy-icon">
-                            02
-                        </div>
-
-                        <h3>
-                            Coluna
-                        </h3>
-
-                        <p>
-                            Dependendo da região e da indicação,
-                            diferentes projeções podem ser realizadas
-                            para demonstrar a anatomia vertebral.
-                        </p>
-
-                        <div class="mini-tags">
-                            <span>AP</span>
-                            <span>LATERAL</span>
-                            <span>OBLÍQUA</span>
-                        </div>
-
-                    </article>
-
-
-                    <article class="anatomy-card">
-
-                        <div class="anatomy-icon">
-                            03
-                        </div>
-
-                        <h3>
-                            Membros
-                        </h3>
-
-                        <p>
-                            Mãos, punhos, cotovelos, joelhos, tornozelos
-                            e pés podem utilizar diferentes projeções
-                            para avaliação óssea.
-                        </p>
-
-                        <div class="mini-tags">
-                            <span>AP</span>
-                            <span>PA</span>
-                            <span>LATERAL</span>
-                        </div>
-
-                    </article>
-
-
-                    <article class="anatomy-card">
-
-                        <div class="anatomy-icon">
-                            04
-                        </div>
-
-                        <h3>
-                            Crânio
-                        </h3>
-
-                        <p>
-                            A radiografia convencional do crânio pode
-                            utilizar diferentes projeções, de acordo
-                            com a indicação clínica.
-                        </p>
-
-                        <div class="mini-tags">
-                            <span>AP</span>
-                            <span>PA</span>
-                            <span>LATERAL</span>
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             GALERIA
-        ========================== -->
-
-        <section
-            class="section gallery-section"
-            id="galeria"
-        >
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <div>
-
-                        <span class="section-label">
-                            05 / IMAGENS
-                        </span>
-
-                        <h2>
-                            Galeria de
-                            <span>raio-X</span>
-                        </h2>
-
-                    </div>
-
-                    <p>
-                        Exemplos educacionais de imagens
-                        radiográficas.
-                    </p>
-
-                </div>
-
-
-                <div class="gallery-grid">
-
-                    <!-- IMAGEM 1 -->
-
-                    <article class="gallery-card">
-
-                        <button
-                            class="image-button"
-                            data-image="https://www.radiologyinfo.org/en/gallery/image/490"
-                            data-title="Radiografia de tórax normal"
-                        >
-
-                            <img
-                                src="https://www.radiologyinfo.org/en/gallery/image/490"
-                                alt="Radiografia de tórax"
-                            >
-
-                            <span class="zoom">
-                                +
-                            </span>
-
-                        </button>
-
-                        <div class="gallery-info">
-
-                            <span>
-                                TÓRAX
-                            </span>
-
-                            <h3>
-                                Radiografia de tórax
-                            </h3>
-
-                            <p>
-                                Exemplo de radiografia de tórax.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- IMAGEM 2 -->
-
-                    <article class="gallery-card">
-
-                        <button
-                            class="image-button"
-                            data-image="https://www.radiologyinfo.org/en/gallery/image/552"
-                            data-title="Radiografia lateral do tórax"
-                        >
-
-                            <img
-                                src="https://www.radiologyinfo.org/en/gallery/image/552"
-                                alt="Radiografia lateral do tórax"
-                            >
-
-                            <span class="zoom">
-                                +
-                            </span>
-
-                        </button>
-
-                        <div class="gallery-info">
-
-                            <span>
-                                LATERAL
-                            </span>
-
-                            <h3>
-                                Vista lateral
-                            </h3>
-
-                            <p>
-                                Exemplo de radiografia lateral
-                                do tórax.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- IMAGEM 3 -->
-
-                    <article class="gallery-card">
-
-                        <button
-                            class="image-button"
-                            data-image="https://www.radiologyinfo.org/en/gallery/image/521"
-                            data-title="Radiografia frontal do tórax"
-                        >
-
-                            <img
-                                src="https://www.radiologyinfo.org/en/gallery/image/521"
-                                alt="Radiografia frontal do tórax"
-                            >
-
-                            <span class="zoom">
-                                +
-                            </span>
-
-                        </button>
-
-                        <div class="gallery-info">
-
-                            <span>
-                                FRONTAL
-                            </span>
-
-                            <h3>
-                                Vista frontal
-                            </h3>
-
-                            <p>
-                                Exemplo de radiografia frontal
-                                do tórax.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- IMAGEM 4 -->
-
-                    <article class="gallery-card">
-
-                        <button
-                            class="image-button"
-                            data-image="https://www.radiologyinfo.org/en/gallery/image/461"
-                            data-title="Radiografia lateral da coluna cervical"
-                        >
-
-                            <img
-                                src="https://www.radiologyinfo.org/en/gallery/image/461"
-                                alt="Radiografia da coluna cervical"
-                            >
-
-                            <span class="zoom">
-                                +
-                            </span>
-
-                        </button>
-
-                        <div class="gallery-info">
-
-                            <span>
-                                COLUNA
-                            </span>
-
-                            <h3>
-                                Coluna cervical
-                            </h3>
-
-                            <p>
-                                Exemplo de imagem radiográfica
-                                da coluna cervical.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-
-                <p class="gallery-note">
-                    As imagens são utilizadas para fins educacionais.
-                    Consulte a fonte original e não utilize imagens
-                    radiográficas para realizar autodiagnóstico.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             COMO LER UMA RADIOGRAFIA
-        ========================== -->
-
-        <section class="section checklist-section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <div>
-
-                        <span class="section-label">
-                            06 / ESTUDO
-                        </span>
-
-                        <h2>
-                            Checklist de
-                            <span>observação</span>
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-                <div class="checklist">
-
-                    <div class="check-item">
-
-                        <span>01</span>
-
+                    <div class="floating-card card-top">
+                        <i class="fa-solid fa-heart-pulse"></i>
                         <div>
-                            <h3>Identificação</h3>
-                            <p>
-                                Confira a região examinada,
-                                identificação e marcadores.
-                            </p>
+                            <strong>Diagnóstico</strong>
+                            <span>por imagem</span>
                         </div>
-
                     </div>
 
-
-                    <div class="check-item">
-
-                        <span>02</span>
-
+                    <div class="floating-card card-bottom">
+                        <i class="fa-solid fa-shield-halved"></i>
                         <div>
-                            <h3>Projeção</h3>
-                            <p>
-                                Observe qual incidência ou projeção
-                                foi utilizada.
-                            </p>
+                            <strong>Proteção</strong>
+                            <span>radiológica</span>
                         </div>
-
-                    </div>
-
-
-                    <div class="check-item">
-
-                        <span>03</span>
-
-                        <div>
-                            <h3>Qualidade técnica</h3>
-                            <p>
-                                Avalie posicionamento, exposição,
-                                colimação e outros aspectos técnicos.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="check-item">
-
-                        <span>04</span>
-
-                        <div>
-                            <h3>Anatomia</h3>
-                            <p>
-                                Identifique as principais estruturas
-                                anatômicas representadas.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="check-item">
-
-                        <span>05</span>
-
-                        <div>
-                            <h3>Comparação</h3>
-                            <p>
-                                Quando disponível, estudos anteriores
-                                podem auxiliar a avaliação médica.
-                            </p>
-                        </div>
-
                     </div>
 
                 </div>
@@ -1008,47 +171,990 @@
         </section>
 
 
-        <!-- =========================
-             SEGURANÇA
-        ========================== -->
+        <!-- ================= INTRO ================= -->
 
-        <section
-            class="section safety-section"
-            id="seguranca"
-        >
+        <section class="section intro-section">
 
-            <div class="container safety-grid">
+            <div class="container">
 
-                <div>
+                <div class="section-header">
 
-                    <span class="section-label">
-                        07 / SEGURANÇA
+                    <span class="section-tag">
+                        INTRODUÇÃO
                     </span>
 
                     <h2>
-                        Radioproteção
-                        <span>é essencial.</span>
+                        O que é <span>Radiologia?</span>
+                    </h2>
+
+                    <p>
+                        A radiologia é uma área da saúde que utiliza métodos
+                        de diagnóstico por imagem para auxiliar na avaliação
+                        de estruturas internas do corpo humano.
+                    </p>
+
+                </div>
+
+                <div class="info-grid">
+
+                    <article class="info-card">
+
+                        <div class="info-icon blue">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+
+                        <h3>Diagnóstico por imagem</h3>
+
+                        <p>
+                            Permite visualizar estruturas internas do organismo
+                            sem a necessidade de procedimentos invasivos.
+                        </p>
+
+                    </article>
+
+
+                    <article class="info-card">
+
+                        <div class="info-icon purple">
+                            <i class="fa-solid fa-microscope"></i>
+                        </div>
+
+                        <h3>Tecnologia</h3>
+
+                        <p>
+                            A radiologia utiliza diferentes tecnologias para
+                            produzir imagens úteis à avaliação clínica.
+                        </p>
+
+                    </article>
+
+
+                    <article class="info-card">
+
+                        <div class="info-icon green">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+
+                        <h3>Segurança</h3>
+
+                        <p>
+                            A utilização responsável da radiação ionizante
+                            depende de princípios de proteção e segurança.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RAIOS X ================= -->
+
+        <section class="section dark-section" id="raios-x">
+
+            <div class="container">
+
+                <div class="two-columns">
+
+                    <div class="content-text">
+
+                        <span class="section-tag light">
+                            HISTÓRIA
+                        </span>
+
+                        <h2>
+                            A criação dos
+                            <span>Raios X</span>
+                        </h2>
+
+                        <p>
+                            Os raios X foram descobertos em 1895 pelo físico
+                            alemão Wilhelm Conrad Röntgen. Durante experimentos
+                            com tubos de raios catódicos, Röntgen observou uma
+                            radiação desconhecida capaz de atravessar determinados
+                            materiais e produzir imagens em placas fotográficas.
+                        </p>
+
+                        <p>
+                            A descoberta revolucionou a medicina, pois tornou
+                            possível observar estruturas internas do corpo
+                            humano sem realizar uma cirurgia.
+                        </p>
+
+                        <div class="timeline">
+
+                            <div class="timeline-item">
+
+                                <div class="timeline-dot">
+                                    01
+                                </div>
+
+                                <div>
+                                    <h3>1895</h3>
+                                    <p>
+                                        Descoberta dos raios X por Röntgen.
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="timeline-item">
+
+                                <div class="timeline-dot">
+                                    02
+                                </div>
+
+                                <div>
+                                    <h3>Primeiras imagens</h3>
+                                    <p>
+                                        Foram produzidas imagens de estruturas
+                                        internas do corpo.
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="timeline-item">
+
+                                <div class="timeline-dot">
+                                    03
+                                </div>
+
+                                <div>
+                                    <h3>Radiologia moderna</h3>
+                                    <p>
+                                        A tecnologia evoluiu para sistemas
+                                        digitais e equipamentos mais eficientes.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="science-card">
+
+                        <div class="science-header">
+                            <i class="fa-solid fa-atom"></i>
+                            <span>Como os raios X são produzidos?</span>
+                        </div>
+
+                        <div class="tube">
+
+                            <div class="tube-part cathode">
+                                <span>Cátodo</span>
+                                <i class="fa-solid fa-minus"></i>
+                            </div>
+
+                            <div class="electron-path">
+
+                                <span class="electron e1">•</span>
+                                <span class="electron e2">•</span>
+                                <span class="electron e3">•</span>
+
+                            </div>
+
+                            <div class="tube-part anode">
+                                <span>Ânodo</span>
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+
+                        </div>
+
+                        <p>
+                            No tubo de raios X, elétrons são acelerados em direção
+                            ao alvo metálico. A interação dos elétrons com o alvo
+                            produz radiação X.
+                        </p>
+
+                        <div class="science-note">
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            <span>
+                                A maior parte da energia é convertida em calor,
+                                enquanto uma pequena parte resulta em raios X.
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PRINCÍPIOS ================= -->
+
+        <section class="section" id="principios">
+
+            <div class="container">
+
+                <div class="section-header">
+
+                    <span class="section-tag">
+                        FUNDAMENTOS
+                    </span>
+
+                    <h2>
+                        Princípios da
+                        <span>Radiografia</span>
+                    </h2>
+
+                    <p>
+                        A formação de uma imagem radiográfica depende da
+                        interação da radiação com os tecidos e dos parâmetros
+                        utilizados na aquisição.
+                    </p>
+
+                </div>
+
+
+                <div class="principles-grid">
+
+                    <article class="principle-card">
+
+                        <div class="number">01</div>
+
+                        <div class="principle-icon">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+
+                        <h3>kV</h3>
+
+                        <p>
+                            A tensão aplicada influencia a energia e a capacidade
+                            de penetração do feixe de raios X.
+                        </p>
+
+                    </article>
+
+
+                    <article class="principle-card">
+
+                        <div class="number">02</div>
+
+                        <div class="principle-icon">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+
+                        <h3>mAs</h3>
+
+                        <p>
+                            O produto corrente-tempo está relacionado à quantidade
+                            de fótons produzidos pelo equipamento.
+                        </p>
+
+                    </article>
+
+
+                    <article class="principle-card">
+
+                        <div class="number">03</div>
+
+                        <div class="principle-icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+
+                        <h3>Atenuação</h3>
+
+                        <p>
+                            Os tecidos atenuam o feixe de radiação de diferentes
+                            maneiras, contribuindo para o contraste da imagem.
+                        </p>
+
+                    </article>
+
+
+                    <article class="principle-card">
+
+                        <div class="number">04</div>
+
+                        <div class="principle-icon">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+
+                        <h3>Imagem</h3>
+
+                        <p>
+                            O detector registra a radiação que atravessa o paciente
+                            e transforma essa informação em imagem.
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+                <div class="principle-banner">
+
+                    <div class="banner-icon">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Por que os tecidos aparecem diferentes?
+                        </h3>
+
+                        <p>
+                            Estruturas com diferentes densidades e composição
+                            atenuam os raios X de formas diferentes. Essa
+                            diferença é fundamental para a formação do contraste
+                            radiográfico.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROTEÇÃO ================= -->
+
+        <section class="section protection-section" id="protecao">
+
+            <div class="container">
+
+                <div class="section-header">
+
+                    <span class="section-tag">
+                        SEGURANÇA
+                    </span>
+
+                    <h2>
+                        Proteção
+                        <span>Radiológica</span>
+                    </h2>
+
+                    <p>
+                        A proteção radiológica busca reduzir exposições
+                        desnecessárias, mantendo a utilização da radiação
+                        dentro de condições justificadas e otimizadas.
+                    </p>
+
+                </div>
+
+
+                <div class="protection-main">
+
+                    <div class="protection-visual">
+
+                        <div class="shield-circle">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            <span>PROTEÇÃO</span>
+
+                        </div>
+
+                        <div class="orbit orbit-1"></div>
+                        <div class="orbit orbit-2"></div>
+
+                    </div>
+
+
+                    <div class="protection-content">
+
+                        <div class="protection-item">
+
+                            <div class="protection-number">
+                                01
+                            </div>
+
+                            <div>
+
+                                <h3>Tempo</h3>
+
+                                <p>
+                                    Reduzir o tempo de exposição quando possível
+                                    contribui para diminuir a dose.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="protection-item">
+
+                            <div class="protection-number">
+                                02
+                            </div>
+
+                            <div>
+
+                                <h3>Distância</h3>
+
+                                <p>
+                                    Aumentar a distância em relação à fonte
+                                    geralmente reduz a intensidade da exposição.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="protection-item">
+
+                            <div class="protection-number">
+                                03
+                            </div>
+
+                            <div>
+
+                                <h3>Blindagem</h3>
+
+                                <p>
+                                    Barreiras adequadas podem ajudar a proteger
+                                    profissionais e outras pessoas contra
+                                    exposição desnecessária.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="protection-item">
+
+                            <div class="protection-number">
+                                04
+                            </div>
+
+                            <div>
+
+                                <h3>Justificação e otimização</h3>
+
+                                <p>
+                                    Exames devem ser realizados quando justificados
+                                    e utilizando condições adequadas ao objetivo
+                                    clínico.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="alert-box">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <div>
+
+                        <strong>
+                            Importante
+                        </strong>
+
+                        <p>
+                            Este site possui finalidade educativa. Procedimentos,
+                            parâmetros técnicos e protocolos de exposição devem
+                            seguir normas, legislação e protocolos institucionais
+                            aplicáveis.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EXAMES ================= -->
+
+        <section class="section exams-section" id="exames">
+
+            <div class="container">
+
+                <div class="section-header">
+
+                    <span class="section-tag">
+                        RADIOGRAFIAS
+                    </span>
+
+                    <h2>
+                        Exames por
+                        <span>região anatômica</span>
+                    </h2>
+
+                    <p>
+                        Selecione uma região para conhecer algumas informações
+                        básicas sobre exames radiográficos.
+                    </p>
+
+                </div>
+
+
+                <div class="exam-filters">
+
+                    <button class="filter-btn active" data-filter="all">
+                        Todos
+                    </button>
+
+                    <button class="filter-btn" data-filter="cabeca">
+                        Crânio
+                    </button>
+
+                    <button class="filter-btn" data-filter="torax">
+                        Tórax
+                    </button>
+
+                    <button class="filter-btn" data-filter="mmii">
+                        MMII
+                    </button>
+
+                    <button class="filter-btn" data-filter="mmss">
+                        MMSS
+                    </button>
+
+                    <button class="filter-btn" data-filter="abdomen">
+                        Abdômen
+                    </button>
+
+                    <button class="filter-btn" data-filter="pelve">
+                        Pelve
+                    </button>
+
+                </div>
+
+
+                <div class="exam-grid">
+
+
+                    <!-- CRÂNIO -->
+
+                    <article class="exam-card" data-category="cabeca">
+
+                        <div class="exam-image">
+
+                            <div class="image-placeholder">
+
+                                <i class="fa-solid fa-brain"></i>
+
+                                <span>RAIO X</span>
+
+                                <small>Crânio</small>
+
+                            </div>
+
+                            <span class="exam-label">
+                                CRÂNIO
+                            </span>
+
+                        </div>
+
+                        <div class="exam-content">
+
+                            <span class="exam-category">
+                                Cabeça
+                            </span>
+
+                            <h3>
+                                Radiografia de Crânio
+                            </h3>
+
+                            <p>
+                                Exame radiográfico utilizado para avaliação
+                                das estruturas ósseas do crânio.
+                            </p>
+
+                            <button
+                                class="details-btn"
+                                data-modal="cranio">
+
+                                Ver detalhes
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- TÓRAX -->
+
+                    <article class="exam-card" data-category="torax">
+
+                        <div class="exam-image">
+
+                            <div class="image-placeholder">
+
+                                <i class="fa-solid fa-lungs"></i>
+
+                                <span>RAIO X</span>
+
+                                <small>Tórax</small>
+
+                            </div>
+
+                            <span class="exam-label">
+                                TÓRAX
+                            </span>
+
+                        </div>
+
+                        <div class="exam-content">
+
+                            <span class="exam-category">
+                                Tórax
+                            </span>
+
+                            <h3>
+                                Radiografia de Tórax
+                            </h3>
+
+                            <p>
+                                Um dos exames radiográficos mais utilizados
+                                para avaliação do tórax.
+                            </p>
+
+                            <button
+                                class="details-btn"
+                                data-modal="torax">
+
+                                Ver detalhes
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MMII -->
+
+                    <article class="exam-card" data-category="mmii">
+
+                        <div class="exam-image">
+
+                            <div class="image-placeholder">
+
+                                <i class="fa-solid fa-person-walking"></i>
+
+                                <span>RAIO X</span>
+
+                                <small>MMII</small>
+
+                            </div>
+
+                            <span class="exam-label">
+                                MMII
+                            </span>
+
+                        </div>
+
+                        <div class="exam-content">
+
+                            <span class="exam-category">
+                                Membros inferiores
+                            </span>
+
+                            <h3>
+                                Radiografia de MMII
+                            </h3>
+
+                            <p>
+                                Avaliação radiográfica dos membros inferiores,
+                                incluindo pernas, joelhos, tornozelos e pés.
+                            </p>
+
+                            <button
+                                class="details-btn"
+                                data-modal="mmii">
+
+                                Ver detalhes
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MMSS -->
+
+                    <article class="exam-card" data-category="mmss">
+
+                        <div class="exam-image">
+
+                            <div class="image-placeholder">
+
+                                <i class="fa-solid fa-hand"></i>
+
+                                <span>RAIO X</span>
+
+                                <small>MMSS</small>
+
+                            </div>
+
+                            <span class="exam-label">
+                                MMSS
+                            </span>
+
+                        </div>
+
+                        <div class="exam-content">
+
+                            <span class="exam-category">
+                                Membros superiores
+                            </span>
+
+                            <h3>
+                                Radiografia de MMSS
+                            </h3>
+
+                            <p>
+                                Avaliação de estruturas ósseas dos membros
+                                superiores, como braços, cotovelos e mãos.
+                            </p>
+
+                            <button
+                                class="details-btn"
+                                data-modal="mmss">
+
+                                Ver detalhes
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- ABDÔMEN -->
+
+                    <article class="exam-card" data-category="abdomen">
+
+                        <div class="exam-image">
+
+                            <div class="image-placeholder">
+
+                                <i class="fa-solid fa-person"></i>
+
+                                <span>RAIO X</span>
+
+                                <small>Abdômen</small>
+
+                            </div>
+
+                            <span class="exam-label">
+                                ABDÔMEN
+                            </span>
+
+                        </div>
+
+                        <div class="exam-content">
+
+                            <span class="exam-category">
+                                Abdômen
+                            </span>
+
+                            <h3>
+                                Radiografia de Abdômen
+                            </h3>
+
+                            <p>
+                                Exame que pode auxiliar na avaliação da região
+                                abdominal em situações clínicas específicas.
+                            </p>
+
+                            <button
+                                class="details-btn"
+                                data-modal="abdomen">
+
+                                Ver detalhes
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PELVE -->
+
+                    <article class="exam-card" data-category="pelve">
+
+                        <div class="exam-image">
+
+                            <div class="image-placeholder">
+
+                                <i class="fa-solid fa-bone"></i>
+
+                                <span>RAIO X</span>
+
+                                <small>Pelve</small>
+
+                            </div>
+
+                            <span class="exam-label">
+                                PELVE
+                            </span>
+
+                        </div>
+
+                        <div class="exam-content">
+
+                            <span class="exam-category">
+                                Pelve
+                            </span>
+
+                            <h3>
+                                Radiografia de Pelve
+                            </h3>
+
+                            <p>
+                                Exame radiográfico destinado à avaliação
+                                das estruturas ósseas da pelve.
+                            </p>
+
+                            <button
+                                class="details-btn"
+                                data-modal="pelve">
+
+                                Ver detalhes
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= COMO FUNCIONA ================= -->
+
+        <section class="section process-section">
+
+            <div class="container">
+
+                <div class="section-header">
+
+                    <span class="section-tag">
+                        PROCESSO
+                    </span>
+
+                    <h2>
+                        Como funciona uma
+                        <span>radiografia?</span>
                     </h2>
 
                 </div>
 
 
-                <div>
+                <div class="process">
 
-                    <p>
-                        Os exames radiográficos utilizam radiação
-                        ionizante. Na prática clínica, os profissionais
-                        seguem princípios de proteção radiológica para
-                        manter a exposição tão baixa quanto
-                        razoavelmente possível, considerando a
-                        necessidade do exame.
-                    </p>
+                    <div class="process-step">
 
-                    <p>
-                        A indicação do exame e a escolha da técnica
-                        devem ser realizadas por profissionais
-                        habilitados.
-                    </p>
+                        <div class="process-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <span>01</span>
+
+                        <h3>Posicionamento</h3>
+
+                        <p>
+                            O paciente é posicionado de acordo com a região
+                            anatômica que será examinada.
+                        </p>
+
+                    </div>
+
+
+                    <div class="process-line"></div>
+
+
+                    <div class="process-step">
+
+                        <div class="process-icon">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+
+                        <span>02</span>
+
+                        <h3>Exposição</h3>
+
+                        <p>
+                            O equipamento produz o feixe de raios X de acordo
+                            com o exame e protocolo utilizado.
+                        </p>
+
+                    </div>
+
+
+                    <div class="process-line"></div>
+
+
+                    <div class="process-step">
+
+                        <div class="process-icon">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+
+                        <span>03</span>
+
+                        <h3>Detecção</h3>
+
+                        <p>
+                            O detector recebe a radiação transmitida e registra
+                            as informações necessárias para formar a imagem.
+                        </p>
+
+                    </div>
+
+
+                    <div class="process-line"></div>
+
+
+                    <div class="process-step">
+
+                        <div class="process-icon">
+                            <i class="fa-solid fa-display"></i>
+                        </div>
+
+                        <span>04</span>
+
+                        <h3>Imagem</h3>
+
+                        <p>
+                            A imagem é processada e disponibilizada para
+                            avaliação profissional.
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -1057,30 +1163,37 @@
         </section>
 
 
-        <!-- =========================
-             AVISO
-        ========================== -->
+        <!-- ================= SOBRE ================= -->
 
-        <section class="notice">
+        <section class="section about-section" id="sobre">
 
-            <div class="container notice-content">
+            <div class="container">
 
-                <span class="notice-icon">
-                    !
-                </span>
+                <div class="about-box">
 
-                <div>
+                    <div class="about-icon">
+                        <i class="fa-solid fa-x-ray"></i>
+                    </div>
 
-                    <h3>
-                        Conteúdo educacional
-                    </h3>
+                    <div>
 
-                    <p>
-                        Este site tem finalidade exclusivamente
-                        educacional. As informações e imagens não
-                        substituem avaliação médica, laudo radiológico
-                        ou orientação de profissional habilitado.
-                    </p>
+                        <span class="section-tag">
+                            RADIO MED
+                        </span>
+
+                        <h2>
+                            Conhecimento em
+                            <span>Radiologia</span>
+                        </h2>
+
+                        <p>
+                            Este projeto foi desenvolvido com finalidade
+                            educacional para apresentar conceitos introdutórios
+                            sobre radiologia convencional, raios X, formação
+                            da imagem e proteção radiológica.
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -1091,22 +1204,26 @@
     </main>
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
+    <!-- ================= FOOTER ================= -->
 
     <footer class="footer">
 
         <div class="container footer-content">
 
-            <div>
+            <div class="footer-brand">
 
-                <a href="#inicio" class="logo">
-                    RADIO<span>LOGIA</span>
-                </a>
+                <div class="logo">
+                    <span class="logo-icon">
+                        <i class="fa-solid fa-x-ray"></i>
+                    </span>
+
+                    <span>
+                        Radio<span>Med</span>
+                    </span>
+                </div>
 
                 <p>
-                    Guia educacional de radiologia.
+                    Educação e conhecimento em diagnóstico por imagem.
                 </p>
 
             </div>
@@ -1114,25 +1231,49 @@
 
             <div class="footer-links">
 
-                <a href="#conceitos">
-                    Conceitos
-                </a>
+                <h3>Navegação</h3>
 
-                <a href="#incidencias">
-                    Incidências
-                </a>
-
-                <a href="#galeria">
-                    Galeria
-                </a>
+                <a href="#inicio">Início</a>
+                <a href="#raios-x">Raios X</a>
+                <a href="#principios">Princípios</a>
+                <a href="#protecao">Proteção</a>
 
             </div>
 
 
-            <div class="copyright">
+            <div class="footer-links">
 
-                © <span id="year"></span>
-                Radiologia — Guia de Estudos
+                <h3>Exames</h3>
+
+                <a href="#exames">Crânio</a>
+                <a href="#exames">Tórax</a>
+                <a href="#exames">MMII</a>
+                <a href="#exames">MMSS</a>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>Contato</h3>
+
+                <a href="#exames">Abdômen</a>
+                <a href="#exames">Pelve</a>
+                <a href="#sobre">Sobre o projeto</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © <span id="year"></span> RadioMed.
+                    Projeto educacional.
+                </p>
 
             </div>
 
@@ -1141,41 +1282,66 @@
     </footer>
 
 
-    <!-- =========================
-         MODAL DA GALERIA
-    ========================== -->
+    <!-- ================= MODAL ================= -->
 
-    <div
-        class="modal"
-        id="imageModal"
-        aria-hidden="true"
-    >
+    <div class="modal" id="examModal">
 
         <div class="modal-content">
 
-            <button
-                class="modal-close"
-                id="modalClose"
-                aria-label="Fechar imagem"
-            >
-                ×
+            <button class="modal-close" id="modalClose">
+                <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <img
-                id="modalImage"
-                src=""
-                alt=""
-            >
+            <div class="modal-image">
 
-            <div class="modal-caption">
+                <div class="modal-image-placeholder">
 
-                <span>
-                    RADIOGRAFIA
+                    <i class="fa-solid fa-x-ray"></i>
+
+                    <span id="modalImageTitle">
+                        RADIOGRAFIA
+                    </span>
+
+                    <small>
+                        Área destinada à imagem radiográfica
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="modal-body">
+
+                <span class="section-tag" id="modalCategory">
+                    EXAME
                 </span>
 
-                <h3 id="modalTitle">
-                    Imagem
-                </h3>
+                <h2 id="modalTitle">
+                    Radiografia
+                </h2>
+
+                <p id="modalDescription">
+                    Informações sobre o exame.
+                </p>
+
+                <div class="modal-info">
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span id="modalInfo1"></span>
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span id="modalInfo2"></span>
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span id="modalInfo3"></span>
+                    </div>
+
+                </div>
 
             </div>
 
@@ -1184,8 +1350,16 @@
     </div>
 
 
+    <!-- ================= BACK TO TOP ================= -->
+
+    <button id="backToTop" class="back-to-top">
+
+        <i class="fa-solid fa-arrow-up"></i>
+
+    </button>
+
+
     <script src="script.js"></script>
 
 </body>
-
 </html>
