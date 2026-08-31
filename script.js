@@ -1,85 +1,93 @@
-// ==========================================
-// SITE DE RADIOLOGIA - JAVASCRIPT
-// ==========================================
+// =============================================
+// SITE DE RADIOLOGIA
+// JAVASCRIPT PRINCIPAL
+// =============================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================================
-    // MENU MOBILE
-    // ==========================================
+    console.log("JavaScript carregado com sucesso!");
 
-    const menuButton = document.querySelector(".menu-button");
-    const navMenu = document.querySelector(".nav-menu");
+    // =============================================
+    // 1. MENU MOBILE
+    // =============================================
+
+    const menuButton = document.getElementById("menuButton");
+    const navMenu = document.getElementById("navMenu");
 
     if (menuButton && navMenu) {
-        menuButton.addEventListener("click", () => {
+
+        menuButton.addEventListener("click", function () {
+
             navMenu.classList.toggle("active");
 
-            if (navMenu.classList.contains("active")) {
-                menuButton.innerHTML = "✕";
-            } else {
-                menuButton.innerHTML = "☰";
-            }
         });
 
-        // Fecha o menu ao clicar em um link
-        const navLinks = navMenu.querySelectorAll("a");
-
-        navLinks.forEach(link => {
-            link.addEventListener("click", () => {
-                navMenu.classList.remove("active");
-                menuButton.innerHTML = "☰";
-            });
-        });
     }
 
 
-    // ==========================================
-    // SCROLL SUAVE
-    // ==========================================
+    // =============================================
+    // 2. ROLAGEM SUAVE DO MENU
+    // =============================================
 
-    const links = document.querySelectorAll('a[href^="#"]');
+    const menuLinks = document.querySelectorAll("a[href^='#']");
 
-    links.forEach(link => {
+    menuLinks.forEach(function (link) {
+
         link.addEventListener("click", function (event) {
 
-            const targetId = this.getAttribute("href");
+            const destino = link.getAttribute("href");
 
-            if (targetId === "#") return;
+            if (!destino || destino === "#") {
+                return;
+            }
 
-            const target = document.querySelector(targetId);
+            const elemento = document.querySelector(destino);
 
-            if (target) {
+            if (elemento) {
+
                 event.preventDefault();
 
-                target.scrollIntoView({
+                elemento.scrollIntoView({
                     behavior: "smooth",
                     block: "start"
                 });
+
+                // Fecha menu mobile
+                if (navMenu) {
+                    navMenu.classList.remove("active");
+                }
+
             }
+
         });
+
     });
 
 
-    // ==========================================
-    // BOTÃO VOLTAR AO TOPO
-    // ==========================================
+    // =============================================
+    // 3. BOTÃO VOLTAR AO TOPO
+    // =============================================
 
-    const backToTop = document.querySelector(".back-to-top");
+    const voltarTopo = document.getElementById("voltarTopo");
 
-    if (backToTop) {
+    if (voltarTopo) {
 
-        window.addEventListener("scroll", () => {
+        window.addEventListener("scroll", function () {
 
-            if (window.scrollY > 400) {
-                backToTop.classList.add("show");
+            if (window.scrollY > 300) {
+
+                voltarTopo.classList.add("mostrar");
+
             } else {
-                backToTop.classList.remove("show");
+
+                voltarTopo.classList.remove("mostrar");
+
             }
 
         });
 
-        backToTop.addEventListener("click", () => {
+
+        voltarTopo.addEventListener("click", function () {
 
             window.scrollTo({
                 top: 0,
@@ -87,104 +95,147 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
         });
+
     }
 
 
-    // ==========================================
-    // ANIMAÇÃO DOS ELEMENTOS AO APARECEREM
-    // ==========================================
+    // =============================================
+    // 4. MODO ESCURO
+    // =============================================
 
-    const animatedElements = document.querySelectorAll(
-        ".animate, .card, .exam-card, .info-box, .principle"
-    );
+    const botaoTema = document.getElementById("botaoTema");
 
-    const observer = new IntersectionObserver(
-        (entries) => {
+    if (botaoTema) {
 
-            entries.forEach(entry => {
+        // Recupera configuração salva
+        const temaSalvo = localStorage.getItem("tema");
 
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                }
+        if (temaSalvo === "escuro") {
 
-            });
+            document.body.classList.add("modo-escuro");
 
-        },
-        {
-            threshold: 0.15
+            botaoTema.textContent = "☀️";
+
         }
-    );
-
-    animatedElements.forEach(element => {
-        observer.observe(element);
-    });
 
 
-    // ==========================================
-    // BOTÕES "SAIBA MAIS"
-    // ==========================================
+        botaoTema.addEventListener("click", function () {
 
-    const buttons = document.querySelectorAll(".btn-saiba-mais");
+            document.body.classList.toggle("modo-escuro");
 
-    buttons.forEach(button => {
+            if (
+                document.body.classList.contains("modo-escuro")
+            ) {
 
-        button.addEventListener("click", () => {
+                localStorage.setItem("tema", "escuro");
 
-            const targetId = button.getAttribute("data-target");
-            const target = document.getElementById(targetId);
+                botaoTema.textContent = "☀️";
 
-            if (target) {
+            } else {
 
-                target.classList.toggle("expanded");
+                localStorage.setItem("tema", "claro");
 
-                if (target.classList.contains("expanded")) {
-                    button.textContent = "Mostrar menos";
-                } else {
-                    button.textContent = "Saiba mais";
-                }
+                botaoTema.textContent = "🌙";
+
             }
 
         });
 
-    });
+    }
 
 
-    // ==========================================
-    // MODAL PARA EXAMES
-    // ==========================================
+    // =============================================
+    // 5. ANIMAÇÃO AO ROLAR A PÁGINA
+    // =============================================
 
-    const examCards = document.querySelectorAll(".exam-card");
+    const elementosAnimados =
+        document.querySelectorAll(".animar");
 
-    const modal = document.querySelector(".exam-modal");
-    const modalTitle = document.querySelector(".modal-title");
-    const modalDescription = document.querySelector(".modal-description");
-    const modalImage = document.querySelector(".modal-image");
-    const modalClose = document.querySelector(".modal-close");
+    if (elementosAnimados.length > 0) {
 
-    examCards.forEach(card => {
+        const observador =
+            new IntersectionObserver(function (entradas) {
 
-        card.addEventListener("click", () => {
+                entradas.forEach(function (entrada) {
 
-            const title = card.dataset.title;
-            const description = card.dataset.description;
-            const image = card.dataset.image;
+                    if (entrada.isIntersecting) {
+
+                        entrada.target.classList.add("visivel");
+
+                    }
+
+                });
+
+            }, {
+                threshold: 0.15
+            });
+
+
+        elementosAnimados.forEach(function (elemento) {
+
+            observador.observe(elemento);
+
+        });
+
+    }
+
+
+    // =============================================
+    // 6. MODAL DOS EXAMES
+    // =============================================
+
+    const modal = document.getElementById("modalExame");
+    const modalTitulo = document.getElementById("modalTitulo");
+    const modalTexto = document.getElementById("modalTexto");
+    const modalImagem = document.getElementById("modalImagem");
+    const fecharModal = document.getElementById("fecharModal");
+
+    const botoesExames =
+        document.querySelectorAll(".botao-exame");
+
+
+    botoesExames.forEach(function (botao) {
+
+        botao.addEventListener("click", function () {
+
+            const titulo =
+                botao.getAttribute("data-titulo");
+
+            const texto =
+                botao.getAttribute("data-texto");
+
+            const imagem =
+                botao.getAttribute("data-imagem");
+
+
+            if (modalTitulo) {
+                modalTitulo.textContent =
+                    titulo || "Exame radiológico";
+            }
+
+
+            if (modalTexto) {
+                modalTexto.textContent =
+                    texto || "Informações sobre o exame.";
+            }
+
+
+            if (modalImagem && imagem) {
+
+                modalImagem.src = imagem;
+
+                modalImagem.alt =
+                    titulo || "Radiografia";
+
+            }
+
 
             if (modal) {
 
-                modalTitle.textContent = title || "Exame radiológico";
-
-                modalDescription.textContent =
-                    description ||
-                    "Informações sobre o exame radiológico.";
-
-                if (image && modalImage) {
-                    modalImage.src = image;
-                    modalImage.alt = `Radiografia de ${title}`;
-                }
-
-                modal.classList.add("active");
+                modal.classList.add("aberto");
 
                 document.body.style.overflow = "hidden";
+
             }
 
         });
@@ -192,20 +243,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // Fechar modal
+    // Fechar modal pelo X
 
-    if (modalClose) {
+    if (fecharModal) {
 
-        modalClose.addEventListener("click", fecharModal);
+        fecharModal.addEventListener("click", function () {
+
+            fecharJanelaExame();
+
+        });
 
     }
+
+
+    // Fechar modal clicando fora
 
     if (modal) {
 
-        modal.addEventListener("click", (event) => {
+        modal.addEventListener("click", function (event) {
 
             if (event.target === modal) {
-                fecharModal();
+
+                fecharJanelaExame();
+
             }
 
         });
@@ -213,51 +273,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function fecharModal() {
+    // Fechar modal apertando ESC
 
-        if (modal) {
-            modal.classList.remove("active");
-            document.body.style.overflow = "";
-        }
-
-    }
-
-
-    // Fechar modal com ESC
-
-    document.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", function (event) {
 
         if (event.key === "Escape") {
-            fecharModal();
+
+            fecharJanelaExame();
+
         }
 
     });
 
 
-    // ==========================================
-    // FILTRO DE EXAMES
-    // ==========================================
+    function fecharJanelaExame() {
 
-    const searchInput = document.querySelector("#examSearch");
+        if (modal) {
 
-    if (searchInput) {
+            modal.classList.remove("aberto");
 
-        searchInput.addEventListener("input", () => {
+            document.body.style.overflow = "";
 
-            const search = searchInput.value.toLowerCase().trim();
+        }
 
-            examCards.forEach(card => {
+    }
 
-                const title =
-                    card.dataset.title?.toLowerCase() || "";
 
-                const text =
+    // =============================================
+    // 7. FILTRO / PESQUISA DE EXAMES
+    // =============================================
+
+    const campoPesquisa =
+        document.getElementById("pesquisaExame");
+
+    const cardsExames =
+        document.querySelectorAll(".exame-card");
+
+
+    if (campoPesquisa) {
+
+        campoPesquisa.addEventListener("input", function () {
+
+            const pesquisa =
+                campoPesquisa.value.toLowerCase().trim();
+
+
+            cardsExames.forEach(function (card) {
+
+                const texto =
                     card.textContent.toLowerCase();
 
-                if (
-                    title.includes(search) ||
-                    text.includes(search)
-                ) {
+
+                if (texto.includes(pesquisa)) {
 
                     card.style.display = "";
 
@@ -274,410 +341,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // ==========================================
-    // MODO ESCURO
-    // ==========================================
+    // =============================================
+    // 8. FAQ / PERGUNTAS FREQUENTES
+    // =============================================
 
-    const darkModeButton =
-        document.querySelector("#darkMode");
+    const perguntas =
+        document.querySelectorAll(".pergunta");
 
-    if (darkModeButton) {
 
-        // Verifica preferência salva
-        const darkMode =
-            localStorage.getItem("darkMode");
+    perguntas.forEach(function (pergunta) {
 
-        if (darkMode === "enabled") {
-            document.body.classList.add("dark-mode");
-            darkModeButton.textContent = "☀️";
-        }
+        pergunta.addEventListener("click", function () {
 
+            const resposta =
+                pergunta.nextElementSibling;
 
-        darkModeButton.addEventListener("click", () => {
 
-            document.body.classList.toggle("dark-mode");
+            pergunta.classList.toggle("ativa");
 
-            if (document.body.classList.contains("dark-mode")) {
 
-                localStorage.setItem(
-                    "darkMode",
-                    "enabled"
-                );
+            if (resposta) {
 
-                darkModeButton.textContent = "☀️";
+                if (resposta.style.display === "block") {
 
-            } else {
+                    resposta.style.display = "none";
 
-                localStorage.setItem(
-                    "darkMode",
-                    "disabled"
-                );
+                } else {
 
-                darkModeButton.textContent = "🌙";
+                    resposta.style.display = "block";
 
-            }
-
-        });
-
-    }
-
-
-    // ==========================================
-    // INDICADOR DE PROGRESSO DA PÁGINA
-    // ==========================================
-
-    const progressBar =
-        document.querySelector(".progress-bar");
-
-    if (progressBar) {
-
-        window.addEventListener("scroll", () => {
-
-            const scrollTop =
-                window.scrollY;
-
-            const documentHeight =
-                document.documentElement.scrollHeight -
-                window.innerHeight;
-
-            const percentage =
-                (scrollTop / documentHeight) * 100;
-
-            progressBar.style.width =
-                `${percentage}%`;
-
-        });
-
-    }
-
-
-    // ==========================================
-    // CONTADOR ANIMADO
-    // ==========================================
-
-    const counters =
-        document.querySelectorAll(".counter");
-
-    const counterObserver =
-        new IntersectionObserver(
-            (entries, observer) => {
-
-                entries.forEach(entry => {
-
-                    if (!entry.isIntersecting)
-                        return;
-
-                    const counter =
-                        entry.target;
-
-                    const target =
-                        parseInt(
-                            counter.dataset.target
-                        );
-
-                    let current = 0;
-
-                    const increment =
-                        Math.ceil(target / 100);
-
-                    const updateCounter = () => {
-
-                        current += increment;
-
-                        if (current >= target) {
-
-                            counter.textContent =
-                                target;
-
-                        } else {
-
-                            counter.textContent =
-                                current;
-
-                            requestAnimationFrame(
-                                updateCounter
-                            );
-
-                        }
-
-                    };
-
-                    updateCounter();
-
-                    observer.unobserve(counter);
-
-                });
-
-            },
-            {
-                threshold: 0.5
-            }
-        );
-
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
-    });
-
-
-    // ==========================================
-    // ABAS DE CONTEÚDO
-    // ==========================================
-
-    const tabButtons =
-        document.querySelectorAll(".tab-button");
-
-    const tabContents =
-        document.querySelectorAll(".tab-content");
-
-    tabButtons.forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const target =
-                button.dataset.tab;
-
-            tabButtons.forEach(btn => {
-                btn.classList.remove("active");
-            });
-
-            tabContents.forEach(content => {
-                content.classList.remove("active");
-            });
-
-            button.classList.add("active");
-
-            const selectedContent =
-                document.getElementById(target);
-
-            if (selectedContent) {
-                selectedContent.classList.add("active");
-            }
-
-        });
-
-    });
-
-
-    // ==========================================
-    // ACCORDION - PERGUNTAS FREQUENTES
-    // ==========================================
-
-    const accordionItems =
-        document.querySelectorAll(".accordion-item");
-
-    accordionItems.forEach(item => {
-
-        const question =
-            item.querySelector(".accordion-question");
-
-        if (question) {
-
-            question.addEventListener("click", () => {
-
-                const isActive =
-                    item.classList.contains("active");
-
-                // Fecha todos
-                accordionItems.forEach(otherItem => {
-                    otherItem.classList.remove("active");
-                });
-
-                // Abre o selecionado
-                if (!isActive) {
-                    item.classList.add("active");
                 }
 
-            });
-
-        }
-
-    });
-
-
-    // ==========================================
-    // FORMULÁRIO DE CONTATO
-    // ==========================================
-
-    const contactForm =
-        document.querySelector("#contactForm");
-
-    if (contactForm) {
-
-        contactForm.addEventListener("submit", (event) => {
-
-            event.preventDefault();
-
-            const name =
-                document.querySelector("#name")?.value.trim();
-
-            const email =
-                document.querySelector("#email")?.value.trim();
-
-            const message =
-                document.querySelector("#message")?.value.trim();
-
-            if (!name || !email || !message) {
-
-                mostrarMensagem(
-                    "Preencha todos os campos.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            // Verificação simples de e-mail
-            const emailRegex =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailRegex.test(email)) {
-
-                mostrarMensagem(
-                    "Digite um e-mail válido.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            mostrarMensagem(
-                "Mensagem enviada com sucesso!",
-                "success"
-            );
-
-            contactForm.reset();
-
-        });
-
-    }
-
-
-    // ==========================================
-    // SISTEMA DE MENSAGENS
-    // ==========================================
-
-    function mostrarMensagem(texto, tipo) {
-
-        let messageBox =
-            document.querySelector(".message-box");
-
-        if (!messageBox) {
-
-            messageBox =
-                document.createElement("div");
-
-            messageBox.className =
-                "message-box";
-
-            document.body.appendChild(
-                messageBox
-            );
-
-        }
-
-        messageBox.textContent = texto;
-
-        messageBox.className =
-            `message-box ${tipo} show`;
-
-        setTimeout(() => {
-
-            messageBox.classList.remove("show");
-
-        }, 4000);
-
-    }
-
-
-    // ==========================================
-    // EFEITO DE DIGITAÇÃO
-    // ==========================================
-
-    const typingElement =
-        document.querySelector(".typing");
-
-    if (typingElement) {
-
-        const text =
-            typingElement.dataset.text ||
-            typingElement.textContent;
-
-        typingElement.textContent = "";
-
-        let index = 0;
-
-        function typeWriter() {
-
-            if (index < text.length) {
-
-                typingElement.textContent +=
-                    text.charAt(index);
-
-                index++;
-
-                setTimeout(
-                    typeWriter,
-                    70
-                );
-
-            }
-
-        }
-
-        typeWriter();
-
-    }
-
-
-    // ==========================================
-    // HIGHLIGHT DO MENU CONFORME A SEÇÃO
-    // ==========================================
-
-    const sections =
-        document.querySelectorAll("section[id]");
-
-    const menuLinks =
-        document.querySelectorAll(".nav-menu a");
-
-    window.addEventListener("scroll", () => {
-
-        let currentSection = "";
-
-        sections.forEach(section => {
-
-            const sectionTop =
-                section.offsetTop - 150;
-
-            const sectionHeight =
-                section.offsetHeight;
-
-            if (
-                window.scrollY >= sectionTop &&
-                window.scrollY <
-                sectionTop + sectionHeight
-            ) {
-
-                currentSection =
-                    section.getAttribute("id");
-
-            }
-
-        });
-
-
-        menuLinks.forEach(link => {
-
-            link.classList.remove("active");
-
-            if (
-                link.getAttribute("href") ===
-                `#${currentSection}`
-            ) {
-
-                link.classList.add("active");
-
             }
 
         });
@@ -685,118 +379,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // ==========================================
-    // EFEITO PARALLAX NO HERO
-    // ==========================================
+    // =============================================
+    // 9. ANO AUTOMÁTICO DO RODAPÉ
+    // =============================================
 
-    const hero =
-        document.querySelector(".hero");
-
-    if (hero) {
-
-        window.addEventListener("scroll", () => {
-
-            const scroll =
-                window.scrollY;
-
-            hero.style.backgroundPosition =
-                `center ${scroll * 0.4}px`;
-
-        });
-
-    }
+    const ano =
+        document.getElementById("anoAtual");
 
 
-    // ==========================================
-    // BOTÃO DE IMPRIMIR
-    // ==========================================
+    if (ano) {
 
-    const printButton =
-        document.querySelector("#printPage");
-
-    if (printButton) {
-
-        printButton.addEventListener(
-            "click",
-            () => {
-                window.print();
-            }
-        );
-
-    }
-
-
-    // ==========================================
-    // DATA ATUAL NO RODAPÉ
-    // ==========================================
-
-    const yearElement =
-        document.querySelector("#currentYear");
-
-    if (yearElement) {
-
-        yearElement.textContent =
+        ano.textContent =
             new Date().getFullYear();
 
     }
 
 
-    // ==========================================
-    // EFEITO HOVER NOS CARDS
-    // ==========================================
+    // =============================================
+    // 10. BOTÃO IMPRIMIR
+    // =============================================
 
-    const cards =
-        document.querySelectorAll(".card, .exam-card");
+    const imprimir =
+        document.getElementById("imprimir");
 
-    cards.forEach(card => {
 
-        card.addEventListener("mousemove", (event) => {
+    if (imprimir) {
 
-            const rect =
-                card.getBoundingClientRect();
+        imprimir.addEventListener("click", function () {
 
-            const x =
-                event.clientX - rect.left;
-
-            const y =
-                event.clientY - rect.top;
-
-            const centerX =
-                rect.width / 2;
-
-            const centerY =
-                rect.height / 2;
-
-            const rotateX =
-                ((y - centerY) / centerY) * -3;
-
-            const rotateY =
-                ((x - centerX) / centerX) * 3;
-
-            card.style.transform =
-                `perspective(800px)
-                 rotateX(${rotateX}deg)
-                 rotateY(${rotateY}deg)
-                 translateY(-5px)`;
+            window.print();
 
         });
 
+    }
 
-        card.addEventListener("mouseleave", () => {
-
-            card.style.transform = "";
-
-        });
-
-    });
-
-
-    // ==========================================
-    // INICIALIZAÇÃO
-    // ==========================================
-
-    console.log(
-        "Sistema de Radiologia carregado com sucesso."
-    );
 
 });
