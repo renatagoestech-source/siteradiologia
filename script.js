@@ -1,503 +1,802 @@
 // ==========================================
-// MENU MOBILE
+// SITE DE RADIOLOGIA - JAVASCRIPT
 // ==========================================
 
-const menuButton = document.getElementById("menuButton");
-const nav = document.getElementById("nav");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (menuButton && nav) {
-    menuButton.addEventListener("click", () => {
-        nav.classList.toggle("active");
+    // ==========================================
+    // MENU MOBILE
+    // ==========================================
 
-        if (nav.classList.contains("active")) {
-            menuButton.textContent = "✕";
-        } else {
-            menuButton.textContent = "☰";
-        }
-    });
+    const menuButton = document.querySelector(".menu-button");
+    const navMenu = document.querySelector(".nav-menu");
 
-    // Fecha o menu ao clicar em algum link
-    const navLinks = nav.querySelectorAll("a");
+    if (menuButton && navMenu) {
+        menuButton.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
 
-    navLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-            nav.classList.remove("active");
-            menuButton.textContent = "☰";
+            if (navMenu.classList.contains("active")) {
+                menuButton.innerHTML = "✕";
+            } else {
+                menuButton.innerHTML = "☰";
+            }
+        });
+
+        // Fecha o menu ao clicar em um link
+        const navLinks = navMenu.querySelectorAll("a");
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                navMenu.classList.remove("active");
+                menuButton.innerHTML = "☰";
+            });
+        });
+    }
+
+
+    // ==========================================
+    // SCROLL SUAVE
+    // ==========================================
+
+    const links = document.querySelectorAll('a[href^="#"]');
+
+    links.forEach(link => {
+        link.addEventListener("click", function (event) {
+
+            const targetId = this.getAttribute("href");
+
+            if (targetId === "#") return;
+
+            const target = document.querySelector(targetId);
+
+            if (target) {
+                event.preventDefault();
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
         });
     });
-}
 
 
-// ==========================================
-// ANO AUTOMÁTICO DO FOOTER
-// ==========================================
+    // ==========================================
+    // BOTÃO VOLTAR AO TOPO
+    // ==========================================
 
-const year = document.getElementById("year");
+    const backToTop = document.querySelector(".back-to-top");
 
-if (year) {
-    year.textContent = new Date().getFullYear();
-}
+    if (backToTop) {
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 400) {
+                backToTop.classList.add("show");
+            } else {
+                backToTop.classList.remove("show");
+            }
+
+        });
+
+        backToTop.addEventListener("click", () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+    }
 
 
-// ==========================================
-// MODAL DAS IMAGENS DE RAIO-X
-// ==========================================
+    // ==========================================
+    // ANIMAÇÃO DOS ELEMENTOS AO APARECEREM
+    // ==========================================
 
-const modal = document.getElementById("imageModal");
-const modalImage = document.getElementById("modalImage");
-const modalTitle = document.getElementById("modalTitle");
-const modalClose = document.getElementById("modalClose");
+    const animatedElements = document.querySelectorAll(
+        ".animate, .card, .exam-card, .info-box, .principle"
+    );
 
-const imageButtons = document.querySelectorAll(".image-button");
+    const observer = new IntersectionObserver(
+        (entries) => {
 
-imageButtons.forEach((button) => {
+            entries.forEach(entry => {
 
-    button.addEventListener("click", () => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
 
-        const image = button.getAttribute("data-image");
-        const title = button.getAttribute("data-title");
+            });
 
-        if (!modal || !modalImage) return;
-
-        modalImage.src = image;
-        modalImage.alt = title;
-
-        if (modalTitle) {
-            modalTitle.textContent = title;
+        },
+        {
+            threshold: 0.15
         }
+    );
 
-        modal.classList.add("active");
-
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.style.overflow = "hidden";
+    animatedElements.forEach(element => {
+        observer.observe(element);
     });
 
-});
 
+    // ==========================================
+    // BOTÕES "SAIBA MAIS"
+    // ==========================================
 
-// ==========================================
-// FUNÇÃO PARA FECHAR MODAL
-// ==========================================
+    const buttons = document.querySelectorAll(".btn-saiba-mais");
 
-function closeModal() {
+    buttons.forEach(button => {
 
-    if (!modal) return;
+        button.addEventListener("click", () => {
 
-    modal.classList.remove("active");
+            const targetId = button.getAttribute("data-target");
+            const target = document.getElementById(targetId);
 
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
+            if (target) {
 
-    document.body.style.overflow = "";
+                target.classList.toggle("expanded");
 
-    if (modalImage) {
-        modalImage.src = "";
-    }
-}
+                if (target.classList.contains("expanded")) {
+                    button.textContent = "Mostrar menos";
+                } else {
+                    button.textContent = "Saiba mais";
+                }
+            }
 
-
-// Botão X
-
-if (modalClose) {
-    modalClose.addEventListener(
-        "click",
-        closeModal
-    );
-}
-
-
-// Clique fora da imagem
-
-if (modal) {
-
-    modal.addEventListener("click", (event) => {
-
-        if (event.target === modal) {
-            closeModal();
-        }
+        });
 
     });
 
-}
+
+    // ==========================================
+    // MODAL PARA EXAMES
+    // ==========================================
+
+    const examCards = document.querySelectorAll(".exam-card");
+
+    const modal = document.querySelector(".exam-modal");
+    const modalTitle = document.querySelector(".modal-title");
+    const modalDescription = document.querySelector(".modal-description");
+    const modalImage = document.querySelector(".modal-image");
+    const modalClose = document.querySelector(".modal-close");
+
+    examCards.forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const title = card.dataset.title;
+            const description = card.dataset.description;
+            const image = card.dataset.image;
+
+            if (modal) {
+
+                modalTitle.textContent = title || "Exame radiológico";
+
+                modalDescription.textContent =
+                    description ||
+                    "Informações sobre o exame radiológico.";
+
+                if (image && modalImage) {
+                    modalImage.src = image;
+                    modalImage.alt = `Radiografia de ${title}`;
+                }
+
+                modal.classList.add("active");
+
+                document.body.style.overflow = "hidden";
+            }
+
+        });
+
+    });
 
 
-// Tecla ESC
+    // Fechar modal
 
-document.addEventListener("keydown", (event) => {
+    if (modalClose) {
 
-    if (
-        event.key === "Escape" &&
-        modal &&
-        modal.classList.contains("active")
-    ) {
-
-        closeModal();
+        modalClose.addEventListener("click", fecharModal);
 
     }
 
-});
+    if (modal) {
+
+        modal.addEventListener("click", (event) => {
+
+            if (event.target === modal) {
+                fecharModal();
+            }
+
+        });
+
+    }
 
 
-// ==========================================
-// ANIMAÇÃO DOS ELEMENTOS
-// ==========================================
+    function fecharModal() {
 
-const animatedElements = document.querySelectorAll(
-    ".concept-card, " +
-    ".projection, " +
-    ".anatomy-card, " +
-    ".gallery-card, " +
-    ".check-item"
-);
+        if (modal) {
+            modal.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+    }
 
 
-const animationObserver = new IntersectionObserver(
-    (entries) => {
+    // Fechar modal com ESC
 
-        entries.forEach((entry) => {
+    document.addEventListener("keydown", (event) => {
 
-            if (entry.isIntersecting) {
+        if (event.key === "Escape") {
+            fecharModal();
+        }
 
-                entry.target.classList.add("visible");
+    });
 
-                animationObserver.unobserve(
-                    entry.target
+
+    // ==========================================
+    // FILTRO DE EXAMES
+    // ==========================================
+
+    const searchInput = document.querySelector("#examSearch");
+
+    if (searchInput) {
+
+        searchInput.addEventListener("input", () => {
+
+            const search = searchInput.value.toLowerCase().trim();
+
+            examCards.forEach(card => {
+
+                const title =
+                    card.dataset.title?.toLowerCase() || "";
+
+                const text =
+                    card.textContent.toLowerCase();
+
+                if (
+                    title.includes(search) ||
+                    text.includes(search)
+                ) {
+
+                    card.style.display = "";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    }
+
+
+    // ==========================================
+    // MODO ESCURO
+    // ==========================================
+
+    const darkModeButton =
+        document.querySelector("#darkMode");
+
+    if (darkModeButton) {
+
+        // Verifica preferência salva
+        const darkMode =
+            localStorage.getItem("darkMode");
+
+        if (darkMode === "enabled") {
+            document.body.classList.add("dark-mode");
+            darkModeButton.textContent = "☀️";
+        }
+
+
+        darkModeButton.addEventListener("click", () => {
+
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+
+                localStorage.setItem(
+                    "darkMode",
+                    "enabled"
                 );
+
+                darkModeButton.textContent = "☀️";
+
+            } else {
+
+                localStorage.setItem(
+                    "darkMode",
+                    "disabled"
+                );
+
+                darkModeButton.textContent = "🌙";
 
             }
 
         });
 
-    },
-    {
-        threshold: 0.15
     }
-);
 
 
-animatedElements.forEach((element) => {
+    // ==========================================
+    // INDICADOR DE PROGRESSO DA PÁGINA
+    // ==========================================
 
-    element.style.opacity = "0";
+    const progressBar =
+        document.querySelector(".progress-bar");
 
-    element.style.transform =
-        "translateY(30px)";
+    if (progressBar) {
 
-    element.style.transition =
-        "opacity 0.7s ease, transform 0.7s ease";
+        window.addEventListener("scroll", () => {
 
-    animationObserver.observe(element);
+            const scrollTop =
+                window.scrollY;
 
-});
+            const documentHeight =
+                document.documentElement.scrollHeight -
+                window.innerHeight;
 
+            const percentage =
+                (scrollTop / documentHeight) * 100;
 
-// ==========================================
-// HEADER AO ROLAR A PÁGINA
-// ==========================================
+            progressBar.style.width =
+                `${percentage}%`;
 
-const header = document.querySelector(".header");
-
-window.addEventListener("scroll", () => {
-
-    if (!header) return;
-
-    if (window.scrollY > 60) {
-
-        header.classList.add("scrolled");
-
-    } else {
-
-        header.classList.remove("scrolled");
+        });
 
     }
 
-});
 
+    // ==========================================
+    // CONTADOR ANIMADO
+    // ==========================================
 
-// ==========================================
-// BOTÃO VOLTAR AO TOPO
-// ==========================================
+    const counters =
+        document.querySelectorAll(".counter");
 
-const backToTop = document.createElement("button");
+    const counterObserver =
+        new IntersectionObserver(
+            (entries, observer) => {
 
-backToTop.innerHTML = "↑";
+                entries.forEach(entry => {
 
-backToTop.className = "back-to-top";
+                    if (!entry.isIntersecting)
+                        return;
 
-backToTop.setAttribute(
-    "aria-label",
-    "Voltar ao topo"
-);
+                    const counter =
+                        entry.target;
 
-document.body.appendChild(backToTop);
+                    const target =
+                        parseInt(
+                            counter.dataset.target
+                        );
 
+                    let current = 0;
 
-window.addEventListener("scroll", () => {
+                    const increment =
+                        Math.ceil(target / 100);
 
-    if (window.scrollY > 500) {
+                    const updateCounter = () => {
 
-        backToTop.classList.add("show");
+                        current += increment;
 
-    } else {
+                        if (current >= target) {
 
-        backToTop.classList.remove("show");
+                            counter.textContent =
+                                target;
 
-    }
+                        } else {
 
-});
+                            counter.textContent =
+                                current;
 
+                            requestAnimationFrame(
+                                updateCounter
+                            );
 
-backToTop.addEventListener("click", () => {
+                        }
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+                    };
+
+                    updateCounter();
+
+                    observer.unobserve(counter);
+
+                });
+
+            },
+            {
+                threshold: 0.5
+            }
+        );
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
     });
 
-});
+
+    // ==========================================
+    // ABAS DE CONTEÚDO
+    // ==========================================
+
+    const tabButtons =
+        document.querySelectorAll(".tab-button");
+
+    const tabContents =
+        document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const target =
+                button.dataset.tab;
+
+            tabButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            tabContents.forEach(content => {
+                content.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            const selectedContent =
+                document.getElementById(target);
+
+            if (selectedContent) {
+                selectedContent.classList.add("active");
+            }
+
+        });
+
+    });
 
 
-// ==========================================
-// FILTRO DAS INCIDÊNCIAS
-// ==========================================
+    // ==========================================
+    // ACCORDION - PERGUNTAS FREQUENTES
+    // ==========================================
 
-const projectionItems =
-    document.querySelectorAll(".projection");
+    const accordionItems =
+        document.querySelectorAll(".accordion-item");
+
+    accordionItems.forEach(item => {
+
+        const question =
+            item.querySelector(".accordion-question");
+
+        if (question) {
+
+            question.addEventListener("click", () => {
+
+                const isActive =
+                    item.classList.contains("active");
+
+                // Fecha todos
+                accordionItems.forEach(otherItem => {
+                    otherItem.classList.remove("active");
+                });
+
+                // Abre o selecionado
+                if (!isActive) {
+                    item.classList.add("active");
+                }
+
+            });
+
+        }
+
+    });
 
 
-function filterProjections(searchTerm) {
+    // ==========================================
+    // FORMULÁRIO DE CONTATO
+    // ==========================================
 
-    projectionItems.forEach((item) => {
+    const contactForm =
+        document.querySelector("#contactForm");
+
+    if (contactForm) {
+
+        contactForm.addEventListener("submit", (event) => {
+
+            event.preventDefault();
+
+            const name =
+                document.querySelector("#name")?.value.trim();
+
+            const email =
+                document.querySelector("#email")?.value.trim();
+
+            const message =
+                document.querySelector("#message")?.value.trim();
+
+            if (!name || !email || !message) {
+
+                mostrarMensagem(
+                    "Preencha todos os campos.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            // Verificação simples de e-mail
+            const emailRegex =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+
+                mostrarMensagem(
+                    "Digite um e-mail válido.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            mostrarMensagem(
+                "Mensagem enviada com sucesso!",
+                "success"
+            );
+
+            contactForm.reset();
+
+        });
+
+    }
+
+
+    // ==========================================
+    // SISTEMA DE MENSAGENS
+    // ==========================================
+
+    function mostrarMensagem(texto, tipo) {
+
+        let messageBox =
+            document.querySelector(".message-box");
+
+        if (!messageBox) {
+
+            messageBox =
+                document.createElement("div");
+
+            messageBox.className =
+                "message-box";
+
+            document.body.appendChild(
+                messageBox
+            );
+
+        }
+
+        messageBox.textContent = texto;
+
+        messageBox.className =
+            `message-box ${tipo} show`;
+
+        setTimeout(() => {
+
+            messageBox.classList.remove("show");
+
+        }, 4000);
+
+    }
+
+
+    // ==========================================
+    // EFEITO DE DIGITAÇÃO
+    // ==========================================
+
+    const typingElement =
+        document.querySelector(".typing");
+
+    if (typingElement) {
 
         const text =
-            item.textContent.toLowerCase();
+            typingElement.dataset.text ||
+            typingElement.textContent;
 
-        const search =
-            searchTerm.toLowerCase();
+        typingElement.textContent = "";
 
-        if (text.includes(search)) {
+        let index = 0;
 
-            item.style.display = "grid";
+        function typeWriter() {
 
-        } else {
+            if (index < text.length) {
 
-            item.style.display = "none";
+                typingElement.textContent +=
+                    text.charAt(index);
+
+                index++;
+
+                setTimeout(
+                    typeWriter,
+                    70
+                );
+
+            }
 
         }
 
+        typeWriter();
+
+    }
+
+
+    // ==========================================
+    // HIGHLIGHT DO MENU CONFORME A SEÇÃO
+    // ==========================================
+
+    const sections =
+        document.querySelectorAll("section[id]");
+
+    const menuLinks =
+        document.querySelectorAll(".nav-menu a");
+
+    window.addEventListener("scroll", () => {
+
+        let currentSection = "";
+
+        sections.forEach(section => {
+
+            const sectionTop =
+                section.offsetTop - 150;
+
+            const sectionHeight =
+                section.offsetHeight;
+
+            if (
+                window.scrollY >= sectionTop &&
+                window.scrollY <
+                sectionTop + sectionHeight
+            ) {
+
+                currentSection =
+                    section.getAttribute("id");
+
+            }
+
+        });
+
+
+        menuLinks.forEach(link => {
+
+            link.classList.remove("active");
+
+            if (
+                link.getAttribute("href") ===
+                `#${currentSection}`
+            ) {
+
+                link.classList.add("active");
+
+            }
+
+        });
+
     });
 
-}
+
+    // ==========================================
+    // EFEITO PARALLAX NO HERO
+    // ==========================================
+
+    const hero =
+        document.querySelector(".hero");
+
+    if (hero) {
+
+        window.addEventListener("scroll", () => {
+
+            const scroll =
+                window.scrollY;
+
+            hero.style.backgroundPosition =
+                `center ${scroll * 0.4}px`;
+
+        });
+
+    }
 
 
-// ==========================================
-// CRIAR CAMPO DE BUSCA
-// ==========================================
+    // ==========================================
+    // BOTÃO DE IMPRIMIR
+    // ==========================================
 
-const projectionSection =
-    document.querySelector(".projections-section");
+    const printButton =
+        document.querySelector("#printPage");
 
+    if (printButton) {
 
-if (projectionSection) {
-
-    const searchContainer =
-        document.createElement("div");
-
-    searchContainer.className =
-        "projection-search";
-
-
-    const searchInput =
-        document.createElement("input");
-
-    searchInput.type = "text";
-
-    searchInput.placeholder =
-        "Pesquisar incidência...";
-
-    searchInput.setAttribute(
-        "aria-label",
-        "Pesquisar incidência"
-    );
-
-
-    searchContainer.appendChild(
-        searchInput
-    );
-
-
-    const heading =
-        projectionSection.querySelector(
-            ".section-heading"
-        );
-
-
-    if (heading) {
-
-        heading.after(
-            searchContainer
+        printButton.addEventListener(
+            "click",
+            () => {
+                window.print();
+            }
         );
 
     }
 
 
-    searchInput.addEventListener(
-        "input",
-        (event) => {
+    // ==========================================
+    // DATA ATUAL NO RODAPÉ
+    // ==========================================
 
-            filterProjections(
-                event.target.value
-            );
+    const yearElement =
+        document.querySelector("#currentYear");
 
-        }
-    );
+    if (yearElement) {
 
-}
-
-
-// ==========================================
-// DESTAQUE DO MENU ATIVO
-// ==========================================
-
-const sections =
-    document.querySelectorAll("section[id]");
-
-const menuLinks =
-    document.querySelectorAll(".nav a");
-
-
-window.addEventListener("scroll", () => {
-
-    let currentSection = "";
-
-    sections.forEach((section) => {
-
-        const sectionTop =
-            section.offsetTop - 150;
-
-        const sectionHeight =
-            section.offsetHeight;
-
-        if (
-            window.scrollY >= sectionTop &&
-            window.scrollY <
-            sectionTop + sectionHeight
-        ) {
-
-            currentSection =
-                section.getAttribute("id");
-
-        }
-
-    });
-
-
-    menuLinks.forEach((link) => {
-
-        link.classList.remove("active");
-
-        const href =
-            link.getAttribute("href");
-
-        if (
-            href === `#${currentSection}`
-        ) {
-
-            link.classList.add("active");
-
-        }
-
-    });
-
-});
-
-
-// ==========================================
-// EFEITO DE DIGITAÇÃO NO HERO
-// ==========================================
-
-const heroStrong =
-    document.querySelector(".hero h1 strong");
-
-
-if (heroStrong) {
-
-    const originalText =
-        heroStrong.textContent.trim();
-
-    heroStrong.textContent = "";
-
-    let index = 0;
-
-
-    function typeEffect() {
-
-        if (index < originalText.length) {
-
-            heroStrong.textContent +=
-                originalText.charAt(index);
-
-            index++;
-
-            setTimeout(
-                typeEffect,
-                80
-            );
-
-        }
+        yearElement.textContent =
+            new Date().getFullYear();
 
     }
 
 
-    setTimeout(
-        typeEffect,
-        600
+    // ==========================================
+    // EFEITO HOVER NOS CARDS
+    // ==========================================
+
+    const cards =
+        document.querySelectorAll(".card, .exam-card");
+
+    cards.forEach(card => {
+
+        card.addEventListener("mousemove", (event) => {
+
+            const rect =
+                card.getBoundingClientRect();
+
+            const x =
+                event.clientX - rect.left;
+
+            const y =
+                event.clientY - rect.top;
+
+            const centerX =
+                rect.width / 2;
+
+            const centerY =
+                rect.height / 2;
+
+            const rotateX =
+                ((y - centerY) / centerY) * -3;
+
+            const rotateY =
+                ((x - centerX) / centerX) * 3;
+
+            card.style.transform =
+                `perspective(800px)
+                 rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)
+                 translateY(-5px)`;
+
+        });
+
+
+        card.addEventListener("mouseleave", () => {
+
+            card.style.transform = "";
+
+        });
+
+    });
+
+
+    // ==========================================
+    // INICIALIZAÇÃO
+    // ==========================================
+
+    console.log(
+        "Sistema de Radiologia carregado com sucesso."
     );
 
-}
-
-
-// ==========================================
-// CONTADOR DOS CONCEITOS
-// ==========================================
-
-const conceptCards =
-    document.querySelectorAll(".concept-card");
-
-
-conceptCards.forEach((card, index) => {
-
-    card.addEventListener("mouseenter", () => {
-
-        card.style.transform =
-            "translateY(-6px)";
-
-    });
-
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform =
-            "translateY(0)";
-
-    });
-
 });
-
-
-// ==========================================
-// MENSAGEM NO CONSOLE
-// ==========================================
-
-console.log(
-    "Radiologia | Guia de Estudos carregado com sucesso."
-);
-
-console.log(
-    "Site desenvolvido para fins educacionais."
-);
