@@ -1,417 +1,150 @@
-// =============================================
-// SITE DE RADIOLOGIA
-// JAVASCRIPT PRINCIPAL
-// =============================================
+// ============================================================
+// Radiologia — Fundamentos & Técnica
+// Interatividade: menu mobile, navegação ativa, escala de
+// densidades, diagrama do tubo de raios X e contador de seções.
+// ============================================================
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', () => {
 
-    console.log("JavaScript carregado com sucesso!");
+  /* ---------- Menu mobile ---------- */
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
 
-    // =============================================
-    // 1. MENU MOBILE
-    // =============================================
+  function closeMenu(){
+    sidebar.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+  function toggleMenu(){
+    const open = sidebar.classList.toggle('is-open');
+    overlay.classList.toggle('is-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+  }
 
-    const menuButton = document.getElementById("menuButton");
-    const navMenu = document.getElementById("navMenu");
+  menuToggle.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', closeMenu);
+  sidebar.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
 
-    if (menuButton && navMenu) {
+  /* ---------- Navegação ativa via IntersectionObserver ---------- */
+  const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+  const trackedSections = Array.from(document.querySelectorAll('[data-section]'));
+  const visited = new Set();
+  const doseCounter = document.getElementById('doseCounter');
+  const totalSections = trackedSections.length;
 
-        menuButton.addEventListener("click", function () {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const link = navLinks.find(a => a.getAttribute('href') === '#' + id);
 
-            navMenu.classList.toggle("active");
+      if (entry.isIntersecting){
+        navLinks.forEach(a => a.classList.remove('active'));
+        if (link) link.classList.add('active');
 
-        });
-
-    }
-
-
-    // =============================================
-    // 2. ROLAGEM SUAVE DO MENU
-    // =============================================
-
-    const menuLinks = document.querySelectorAll("a[href^='#']");
-
-    menuLinks.forEach(function (link) {
-
-        link.addEventListener("click", function (event) {
-
-            const destino = link.getAttribute("href");
-
-            if (!destino || destino === "#") {
-                return;
-            }
-
-            const elemento = document.querySelector(destino);
-
-            if (elemento) {
-
-                event.preventDefault();
-
-                elemento.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-                // Fecha menu mobile
-                if (navMenu) {
-                    navMenu.classList.remove("active");
-                }
-
-            }
-
-        });
-
-    });
-
-
-    // =============================================
-    // 3. BOTÃO VOLTAR AO TOPO
-    // =============================================
-
-    const voltarTopo = document.getElementById("voltarTopo");
-
-    if (voltarTopo) {
-
-        window.addEventListener("scroll", function () {
-
-            if (window.scrollY > 300) {
-
-                voltarTopo.classList.add("mostrar");
-
-            } else {
-
-                voltarTopo.classList.remove("mostrar");
-
-            }
-
-        });
-
-
-        voltarTopo.addEventListener("click", function () {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        });
-
-    }
-
-
-    // =============================================
-    // 4. MODO ESCURO
-    // =============================================
-
-    const botaoTema = document.getElementById("botaoTema");
-
-    if (botaoTema) {
-
-        // Recupera configuração salva
-        const temaSalvo = localStorage.getItem("tema");
-
-        if (temaSalvo === "escuro") {
-
-            document.body.classList.add("modo-escuro");
-
-            botaoTema.textContent = "☀️";
-
+        if (!visited.has(id)){
+          visited.add(id);
+          if (doseCounter){
+            doseCounter.textContent = visited.size + '/' + totalSections + ' seções vistas';
+          }
         }
-
-
-        botaoTema.addEventListener("click", function () {
-
-            document.body.classList.toggle("modo-escuro");
-
-            if (
-                document.body.classList.contains("modo-escuro")
-            ) {
-
-                localStorage.setItem("tema", "escuro");
-
-                botaoTema.textContent = "☀️";
-
-            } else {
-
-                localStorage.setItem("tema", "claro");
-
-                botaoTema.textContent = "🌙";
-
-            }
-
-        });
-
-    }
-
-
-    // =============================================
-    // 5. ANIMAÇÃO AO ROLAR A PÁGINA
-    // =============================================
-
-    const elementosAnimados =
-        document.querySelectorAll(".animar");
-
-    if (elementosAnimados.length > 0) {
-
-        const observador =
-            new IntersectionObserver(function (entradas) {
-
-                entradas.forEach(function (entrada) {
-
-                    if (entrada.isIntersecting) {
-
-                        entrada.target.classList.add("visivel");
-
-                    }
-
-                });
-
-            }, {
-                threshold: 0.15
-            });
-
-
-        elementosAnimados.forEach(function (elemento) {
-
-            observador.observe(elemento);
-
-        });
-
-    }
-
-
-    // =============================================
-    // 6. MODAL DOS EXAMES
-    // =============================================
-
-    const modal = document.getElementById("modalExame");
-    const modalTitulo = document.getElementById("modalTitulo");
-    const modalTexto = document.getElementById("modalTexto");
-    const modalImagem = document.getElementById("modalImagem");
-    const fecharModal = document.getElementById("fecharModal");
-
-    const botoesExames =
-        document.querySelectorAll(".botao-exame");
-
-
-    botoesExames.forEach(function (botao) {
-
-        botao.addEventListener("click", function () {
-
-            const titulo =
-                botao.getAttribute("data-titulo");
-
-            const texto =
-                botao.getAttribute("data-texto");
-
-            const imagem =
-                botao.getAttribute("data-imagem");
-
-
-            if (modalTitulo) {
-                modalTitulo.textContent =
-                    titulo || "Exame radiológico";
-            }
-
-
-            if (modalTexto) {
-                modalTexto.textContent =
-                    texto || "Informações sobre o exame.";
-            }
-
-
-            if (modalImagem && imagem) {
-
-                modalImagem.src = imagem;
-
-                modalImagem.alt =
-                    titulo || "Radiografia";
-
-            }
-
-
-            if (modal) {
-
-                modal.classList.add("aberto");
-
-                document.body.style.overflow = "hidden";
-
-            }
-
-        });
-
+      }
     });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
+  trackedSections.forEach(sec => sectionObserver.observe(sec));
 
-    // Fechar modal pelo X
+  /* ---------- Escala de densidades radiográficas ---------- */
+  const densityInfo = {
+    ar: 'O ar tem densidade praticamente nula e baixíssimo número atômico: quase não atenua o feixe, por isso aparece preto (regiões pulmonares, alças intestinais com gás).',
+    gordura: 'O tecido adiposo é pouco denso, absorvendo um pouco mais que o ar. Aparece em tons de cinza escuro, contornando órgãos e planos musculares.',
+    agua: 'Água e a maioria dos tecidos moles (músculo, órgãos, sangue) têm densidade intermediária e aparecem em cinza médio na imagem.',
+    osso: 'O tecido ósseo é denso e rico em cálcio, de número atômico mais alto: absorve grande parte do feixe e aparece branco-acinzentado.',
+    metal: 'Próteses, clipes cirúrgicos e outros metais têm altíssima densidade e número atômico: absorvem quase toda a radiação, aparecendo em branco intenso.'
+  };
 
-    if (fecharModal) {
+  const densityCards = document.querySelectorAll('.density-card');
+  const densityExplain = document.getElementById('densityExplain');
 
-        fecharModal.addEventListener("click", function () {
+  densityCards.forEach(card => {
+    card.addEventListener('click', () => {
+      densityCards.forEach(c => c.classList.remove('is-active'));
+      card.classList.add('is-active');
+      const key = card.getAttribute('data-density');
+      if (densityExplain && densityInfo[key]){
+        densityExplain.textContent = densityInfo[key];
+      }
+    });
+  });
 
-            fecharJanelaExame();
-
-        });
-
+  /* ---------- Diagrama do tubo de raios X ---------- */
+  const tubeInfo = {
+    filamento: {
+      title: 'Filamento',
+      text: 'Um fio de tungstênio aquecido por corrente elétrica, que libera elétrons por efeito termiônico — a "nuvem" de elétrons que dará origem ao feixe.'
+    },
+    catodo: {
+      title: 'Catodo (polo negativo)',
+      text: 'Estrutura que abriga o filamento. Concentra e direciona o feixe de elétrons liberados em direção ao ânodo, do outro lado do tubo.'
+    },
+    anodo: {
+      title: 'Ânodo giratório (polo positivo)',
+      text: 'Alvo metálico, geralmente de tungstênio, onde os elétrons colidem em alta velocidade. É nesse impacto que a energia cinética se converte em raios X. O giro contínuo distribui o calor gerado, evitando danos ao alvo.'
+    },
+    feixe: {
+      title: 'Feixe útil',
+      text: 'O conjunto de fótons de raios X que emerge do tubo em direção ao paciente e ao receptor de imagem, após ser colimado para a área de interesse.'
+    },
+    janela: {
+      title: 'Janela do tubo',
+      text: 'Abertura na blindagem de chumbo do invólucro do tubo por onde o feixe útil escapa; o restante da radiação, espalhada em outras direções, é bloqueado.'
     }
+  };
 
+  const tubeParts = document.querySelectorAll('.tube-part');
+  const tubeInfoTitle = document.getElementById('tubeInfoTitle');
+  const tubeInfoText = document.getElementById('tubeInfoText');
 
-    // Fechar modal clicando fora
+  function activateTubePart(part){
+    const key = part.getAttribute('data-part');
+    const data = tubeInfo[key];
+    if (!data) return;
 
-    if (modal) {
+    tubeParts.forEach(p => {
+      p.classList.remove('is-active');
+      p.setAttribute('aria-pressed', 'false');
+    });
+    part.classList.add('is-active');
+    part.setAttribute('aria-pressed', 'true');
 
-        modal.addEventListener("click", function (event) {
+    if (tubeInfoTitle) tubeInfoTitle.textContent = data.title;
+    if (tubeInfoText) tubeInfoText.textContent = data.text;
+  }
 
-            if (event.target === modal) {
+  tubeParts.forEach(part => {
+    part.addEventListener('click', () => activateTubePart(part));
+    part.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        activateTubePart(part);
+      }
+    });
+  });
 
-                fecharJanelaExame();
-
-            }
-
-        });
-
-    }
-
-
-    // Fechar modal apertando ESC
-
-    document.addEventListener("keydown", function (event) {
-
-        if (event.key === "Escape") {
-
-            fecharJanelaExame();
-
+  /* ---------- Apenas um exame aberto por vez, por região ---------- */
+  document.querySelectorAll('.exam-list').forEach(list => {
+    const cards = list.querySelectorAll('.exam-card');
+    cards.forEach(card => {
+      card.addEventListener('toggle', () => {
+        if (card.open){
+          cards.forEach(other => {
+            if (other !== card) other.open = false;
+          });
         }
-
+      });
     });
-
-
-    function fecharJanelaExame() {
-
-        if (modal) {
-
-            modal.classList.remove("aberto");
-
-            document.body.style.overflow = "";
-
-        }
-
-    }
-
-
-    // =============================================
-    // 7. FILTRO / PESQUISA DE EXAMES
-    // =============================================
-
-    const campoPesquisa =
-        document.getElementById("pesquisaExame");
-
-    const cardsExames =
-        document.querySelectorAll(".exame-card");
-
-
-    if (campoPesquisa) {
-
-        campoPesquisa.addEventListener("input", function () {
-
-            const pesquisa =
-                campoPesquisa.value.toLowerCase().trim();
-
-
-            cardsExames.forEach(function (card) {
-
-                const texto =
-                    card.textContent.toLowerCase();
-
-
-                if (texto.includes(pesquisa)) {
-
-                    card.style.display = "";
-
-                } else {
-
-                    card.style.display = "none";
-
-                }
-
-            });
-
-        });
-
-    }
-
-
-    // =============================================
-    // 8. FAQ / PERGUNTAS FREQUENTES
-    // =============================================
-
-    const perguntas =
-        document.querySelectorAll(".pergunta");
-
-
-    perguntas.forEach(function (pergunta) {
-
-        pergunta.addEventListener("click", function () {
-
-            const resposta =
-                pergunta.nextElementSibling;
-
-
-            pergunta.classList.toggle("ativa");
-
-
-            if (resposta) {
-
-                if (resposta.style.display === "block") {
-
-                    resposta.style.display = "none";
-
-                } else {
-
-                    resposta.style.display = "block";
-
-                }
-
-            }
-
-        });
-
-    });
-
-
-    // =============================================
-    // 9. ANO AUTOMÁTICO DO RODAPÉ
-    // =============================================
-
-    const ano =
-        document.getElementById("anoAtual");
-
-
-    if (ano) {
-
-        ano.textContent =
-            new Date().getFullYear();
-
-    }
-
-
-    // =============================================
-    // 10. BOTÃO IMPRIMIR
-    // =============================================
-
-    const imprimir =
-        document.getElementById("imprimir");
-
-
-    if (imprimir) {
-
-        imprimir.addEventListener("click", function () {
-
-            window.print();
-
-        });
-
-    }
-
+  });
 
 });
